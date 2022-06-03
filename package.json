@@ -1,5 +1,5 @@
 {
-  "name": "JS001-Demo_Blockchain",
+  "name": "js001-demo_blockchain",
   "version": "1.0.0",
   "description": "A simple Javascript demo blockchain project that explain the concept of blockchain",
   "main": "index.js",
