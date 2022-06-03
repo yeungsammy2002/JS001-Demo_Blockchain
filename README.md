@@ -7,6 +7,11 @@ npm i -D nodemon
 npm i -D jest
 ```
 
+If ***Intellisense*** doesn't work for some ***jest*** functions, install:
+```
+npm i -D @types/jest
+```
+
 Then you have to install the following dependencies:
 
 ### `crypto-js`
@@ -15,3 +20,14 @@ Then you have to install the following dependencies:
 npm i crypto-js
 ```
 
+### Jest - `package.json` setting
+
+`--watchAll` option is similar to `nodemon`. It sets up a server that listens to changes and reruns the entire suite whenever it detects a new file with change has been saved.
+ ```
+   "scripts": {
+    "test": "jest --watchAll",
+    "dev-test": "nodemon dev-test"
+  },
+ ```
+
+ 
