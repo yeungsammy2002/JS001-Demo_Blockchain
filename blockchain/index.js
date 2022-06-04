@@ -14,9 +14,10 @@ class Blockchain {
   }
 
   isValidChain(chain) {
-    // In Javascript, two different objects that aren't referencing the same original object. It cannot be equal to each other, even if they have the same exactly elements.
-
-    // To compare the first element of the incoming chain and a genesis block, what we can do is stringify these objects and then compare their "toString()" version.
+    // In Javascript, two different objects that aren't referencing the same original object.
+    // It cannot be equal to each other, even if they have the same exactly elements.
+    // To compare the first element of the incoming chain and a genesis block,
+    // what we can do is stringify these objects and then compare their "toString()" version.
 
     if (JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis()))
       return false;
