@@ -2,7 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const Blockchain = require("../blockchain"); // get index.js by default
 
-// define what port out application should listen for request on, set it to environment variables because dev server may listen on different port, 3001 is just a default port
+// define what port out application should listen for request on,
+// set it to environment variables because dev server may listen on different port,
+// 3001 is just a default port
 const HTTP_PORT = process.env.HTTP_PORT || 3001;
 
 const app = express();
