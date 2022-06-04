@@ -17,7 +17,7 @@ class Block {
   }
 
   static genesis() {
-    return new this("genesis time", "-", "genesisHash", []);
+    return new this("Genesis time", "-----", "f1r57-h45h", []);
   }
 
   static hash(timestamp, lastHash, data) {
