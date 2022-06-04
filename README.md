@@ -1,5 +1,5 @@
 # JS001-Demo_Blockchain
-A simple Javascript demo blockchain project that explain the concept of blockchain
+This is a simple Javascript demo blockchain project that explain the concept of blockchain.
 
 To develop this project, first you need to install a few ***dev dependencies*** by running:
 ```
@@ -32,8 +32,32 @@ npm i express
 npm i body-parser
 ```
 
-### Jest - `package.json` setting
+###  `ws` - WebSocket
+***WebSocket*** is used to setup peer to peer server that connects multiple users running this blockchain application. Every individual running the blockchain application will be considered a peer. WebSocket allows us to setup a virtually real-time connection between multiple nodes running a ***Node.js*** application.
+```
+npm i ws
+```
 
+***WebSocket*** will open a ***port*** where it will listen for ***WebSocket connections*** (by using ***WebSocket protocol***, not ***http protocol***). As other nodes fire up the application, they will start up their own ***WebSocket servers*** too.
+
+But more importantly, they now connect to the original server through that open ***WebSocket port***. The orginal server detects that new instances of the application have attempted to connect to its ***WebSocket server***, and thus it makes a connection over the ***WebSocket port*** to those new instances.
+
+Overall, through this connection, all the connected peers had the ability to broadcast data through stringify messages to all the other connected peers.
+
+Each new peer connects to our blockchain application, we need to make sure that the peer has the updated blockchain. As new blocks added by one peer, they will have the ability to broadcast that change in the data of the block to all connected peers over the ***WebSocket connection***.
+
+### Implementation of peer-to-peer server
+There are two possiblity of how an individual server will behave:
+
+1. The initial instance of the blockchain application, this node will start the first peer-to-peer server and then it will wait for connections as its peers applications start up.
+
+2. As a second, third or later instance of the blockchain application. This node will connect to the original peer-to-peer server, done in ***step 1***, and connect over a ***designated WebSocket port***.
+  
+We won't have two separate classes for both of these functionalities. In our implementation, our one peer-to-peer server itself will have both the capability to do ***part 1*** and ***part 2***.
+
+However, it will know whether or not to open the first server, or to connect appears immediately based on us providing an environment variables that we specify for the server on what peers that has.
+
+### Jest - `package.json` setting
 `--watchAll` option is similar to `nodemon`. It sets up a server that listens to changes and reruns the entire suite whenever it detects a new file with change has been saved.
  ```
    "scripts": {

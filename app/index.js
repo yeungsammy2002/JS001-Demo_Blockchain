@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const Blockchain = require("../blockchain"); // get index.js by default
+const P2pServer = require("./p2p-server");
 
 // define what port out application should listen for request on,
 // set it to environment variables because dev server may listen on different port,
@@ -9,6 +10,7 @@ const HTTP_PORT = process.env.HTTP_PORT || 3001;
 
 const app = express();
 const bc = new Blockchain();
+const p2pServer = new P2pServer(bc);
 
 // convert incoming data to JSON
 app.use(bodyParser.json());
@@ -29,3 +31,5 @@ app.post("/mine", (req, res) => {
 app.listen(HTTP_PORT, () => {
   console.log(`Listening on port ${HTTP_PORT}`);
 });
+
+p2pServer.listen();
