@@ -2,48 +2,57 @@ const WebSocket = require("ws");
 
 const P2P_PORT = process.env.P2P_PORT || 5001;
 
-// peers is an array of peer's websocket addresses
 const peers = process.env.PEERS ? process.env.PEERS.split(",") : [];
+// peers is an array of peer's websocket addresses
 
 class P2pServer {
   constructor(blockchain) {
     this.blockchain = blockchain;
     this.sockets = [];
+    // this array of sockets will contain a list of the connected WebSocket server
+    // that end up connecting to this one
   }
 
-  // make sure the first blockchain application can open up a WebSocket server
   listen() {
+    // allow other instances connect to this server
     const server = new WebSocket.Server({ port: P2P_PORT });
+    // "Server()" class for creating a WebSocket server and starting it up first of all
     server.on("connection", (socket) => {
-      // any new instance try connect to this app,
-      // their sockets will be pushed to "this.sockets" array
+      // setup "on()" event listener,
+      // "connection" means you would like to listen for "connection" event
+      // "socket" is an object created as the result of this "connection"
       this.connectSocket(socket);
+      // connectSocket() is a helper function that
+      // pushing "socket" to "this.sockets" array
     });
-    console.log(`Listening for peer-to-peer connections on: ${P2P_PORT}`);
 
     this.connectToPeers();
+    // if this server is a later instance, this app has to connect to peers
+
+    console.log(`Listening for peer-to-peer connections on: ${P2P_PORT}`);
+    // when the local WebSocket server started successfully, will see this message
   }
 
   // make sure that later instances of the application
   // connect to the original one immediately when they specified as a peer
   connectToPeers() {
     peers.forEach((peer) => {
-      // open a new WebSocket module, by using the WebSocket class module
-      // and passing "peer" address into the constructor, to create a
-      // "socket" object
+      // "peers" are specified before start running the server
+      // and "peers" are WebSocket addresses
       const socket = new WebSocket(peer);
+      // WebSocket address could be used to create "socket" object
 
-      // open another event listener for the "open" event,
-      // we can run some code if that server is started later,
-      // eventhough we specified this as a peer first
       socket.on("open", () => this.connectSocket(socket));
+      // setup "on()" event listener for listening "open" event,
+      // we can run some code if that server is started later
     });
   }
 
-  // pushing this socket to our array of sockets
   connectSocket(socket) {
     this.sockets.push(socket);
     console.log("Socket connected");
+    // when a new peer connected, will see this message
+
     // any incoming data sent to this app,
     // will invoke this.blockchain.replaceChain()
     this.messageHandler(socket);
