@@ -37,12 +37,6 @@ class P2pServer {
     this.connectToPeers();
   }
 
-  // pushing this socket to our array of sockets
-  connectSocket(socket) {
-    this.sockets.push(socket);
-    console.log("Socket connected");
-  }
-
   // make sure that later instances of the application
   // connect to the original one immediately when they specified as a peer
   connectToPeers() {
@@ -57,6 +51,33 @@ class P2pServer {
       // eventhough we specified this as a peer first
       socket.on("open", () => this.connectSocket(socket));
     });
+  }
+
+  // pushing this socket to our array of sockets
+  connectSocket(socket) {
+    this.sockets.push(socket);
+    console.log("Socket connected");
+
+    this.messageHandler(socket);
+
+    this.sendChain(socket);
+  }
+
+  messageHandler(socket) {
+    socket.on("message", (message) => {
+      const data = JSON.parse(message);
+      console.log("data", data);
+
+      this.blockchain.replaceChain(data);
+    });
+  }
+
+  sendChain(socket) {
+    socket.send(JSON.stringify(this.blockchain.chain));
+  }
+
+  syncChains() {
+    this.sockets.forEach((socket) => this.sendChain(socket));
   }
 }
 
