@@ -57,6 +57,11 @@ We won't have two separate classes for both of these functionalities. In our imp
 
 However, it will know whether or not to open the first server, or to connect appears immediately based on us providing an environment variables that we specify for the server on what peers that has.
 
+On ***WebSocket***, you have setup some `on()` event listeners in order to communicate with your peers. There are basically ***3 type of events*** you need to know:
+- `connection` - Listening on any peer try to connect this instance
+- `open` - Open the channel between peer and this instance. In other words, it create a "handshake" between peer and this instance. So that this instance can accept any `send()` request.
+- `message` - Listening on any peer send message (whole chain) to this instance
+
 ### Jest - `package.json` setting
 `--watchAll` option is similar to `nodemon`. It sets up a server that listens to changes and reruns the entire suite whenever it detects a new file with change has been saved.
  ```

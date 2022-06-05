@@ -52,12 +52,12 @@ class P2pServer {
     this.sockets.push(socket);
     console.log("Socket connected");
     // when a new peer connected, will see this message
-
+    this.messageHandler(socket);
     // any incoming data sent to this app,
     // will invoke this.blockchain.replaceChain()
-    this.messageHandler(socket);
-    // if the local chain is longer, send it back to the peer is useful
     this.sendChain(socket);
+    // for any peer connected to this instance successfully,
+    // send the local chain to the newly connected peer
   }
 
   messageHandler(socket) {
