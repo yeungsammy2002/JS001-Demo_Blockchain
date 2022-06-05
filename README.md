@@ -46,6 +46,18 @@ Overall, through this connection, all the connected peers had the ability to bro
 
 Each new peer connects to our blockchain application, we need to make sure that the peer has the updated blockchain. As new blocks added by one peer, they will have the ability to broadcast that change in the data of the block to all connected peers over the ***WebSocket connection***.
 
+### `elliptic`
+`elliptic` contains classes and methods that enable elliptic curve based cryptography. Elliptic cryptography is an advanced mathemetical subject. It is computationally expensive and infesible to guest the answer to randomly generated elliptic curve. It provides the core private and public key generation for our wallet.
+```
+npm i elliptic
+```
+
+### `uuid`
+`uuid` stands for ***Universally Unqiue Identifier***. `uuid` is used to generate a transaction ID - ***TXID*** in `chain-util.js`
+```
+npm i uuid
+```
+
 ### Implementation of peer-to-peer server
 There are two possiblity of how an individual server will behave:
 
