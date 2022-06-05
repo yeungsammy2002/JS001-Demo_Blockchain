@@ -4,8 +4,7 @@ const Blockchain = require("../blockchain"); // get index.js by default
 const P2pServer = require("./p2p-server");
 
 // define what port out application should listen for request on,
-// set it to environment variables because dev server may listen on different port,
-// 3001 is just a default port
+// Port 3001 is only first, original node
 const HTTP_PORT = process.env.HTTP_PORT || 3001;
 
 const app = express();
@@ -26,7 +25,6 @@ app.post("/mine", (req, res) => {
 
   p2pServer.syncChains();
 
-  // response back with the updated chain of blocks that includes the user's new block within the data for this post request
   res.redirect("/blocks");
 });
 
