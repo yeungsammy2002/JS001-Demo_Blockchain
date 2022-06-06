@@ -28,7 +28,7 @@ class Block {
   static hash(timestamp, lastHash, data, nonce, difficulty) {
     return ChainUtil.hash(
       `${timestamp}${lastHash}${data}${nonce}${difficulty}`
-    ).toString();
+    );
   }
 
   static mineBlock(lastBlock, data) {
