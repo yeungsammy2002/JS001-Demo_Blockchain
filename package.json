@@ -9,9 +9,6 @@
     "start": "node ./app",
     "dev": "nodemon ./app"
   },
-  "jest": {
-    "testEnvironment": "node"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yeungsammy2002/JS001-Demo_Blockchain.git"
