@@ -24,6 +24,7 @@ class Transaction {
         { amount, address: recipient },
       ]
     );
+
     Transaction.signTransaction(transaction, senderWallet);
 
     return transaction;
