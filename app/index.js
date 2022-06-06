@@ -4,6 +4,7 @@ const Blockchain = require("../blockchain"); // get index.js by default
 const P2pServer = require("./p2p-server");
 const Wallet = require("../wallet");
 const TransactionPool = require("../wallet/transaction-pool");
+const Miner = require("./miner");
 
 // define what port out application should listen for request on,
 // Port 3001 is only first, original node
@@ -14,6 +15,7 @@ const bc = new Blockchain();
 const wallet = new Wallet();
 const tp = new TransactionPool();
 const p2pServer = new P2pServer(bc, tp);
+const miner = new Miner(bc, tp, wallet, p2pServer);
 
 // convert incoming data to JSON
 app.use(bodyParser.json());
@@ -38,9 +40,15 @@ app.get("/transactions", (req, res) => {
 
 app.post("/transact", (req, res) => {
   const { recipient, amount } = req.body;
-  const transaction = wallet.createTransaction(recipient, amount, tp);
+  const transaction = wallet.createTransaction(recipient, amount, bc, tp);
   p2pServer.broadcastTransaction(transaction);
   res.redirect("/transactions");
+});
+
+app.get("/mine-transactions", (req, res) => {
+  const block = miner.mine();
+  console.log(`New block added: ${block.toString()}`);
+  res.redirect("/blocks");
 });
 
 app.get("/public-key", (req, res) => {
