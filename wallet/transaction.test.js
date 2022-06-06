@@ -12,7 +12,6 @@ describe("Transaction", () => {
   });
 
   it("outputs the `amount` subtracted from the wallet balance", () => {
-    console.log(transaction.id);
     expect(
       transaction.outputs.find((output) => output.address === wallet.publicKey)
         .amount
