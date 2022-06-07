@@ -1,6 +1,6 @@
 const EC = require("elliptic").ec;
 const SHA256 = require("crypto-js/sha256");
-const { v1: uuidv1 } = require("uuid");
+const { v1: uuidV1 } = require("uuid");
 const ec = new EC("secp256k1");
 // secp256k1 - "sec" stands for standards of efficient cryptography,
 // "p" stands for prime number, that will be 256 bits
@@ -12,7 +12,7 @@ class ChainUtil {
   }
 
   static id() {
-    return uuidv1();
+    return uuidV1();
   }
 
   static hash(data) {

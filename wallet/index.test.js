@@ -1,7 +1,6 @@
 const Wallet = require("./index");
 const TransactionPool = require("./transaction-pool");
 const Blockchain = require("../blockchain");
-
 const { INITIAL_BALANCE } = require("../config");
 
 describe("Wallet", () => {
@@ -91,7 +90,7 @@ describe("Wallet", () => {
         beforeEach(() => {
           tp.clear();
           senderWallet.createTransaction(wallet.publicKey, addBalance, bc, tp);
-          bc.addBlock(tp.tranactions);
+          bc.addBlock(tp.transactions);
         });
 
         it("calculate the recipient balance only using transactions since its most recent one", () => {
