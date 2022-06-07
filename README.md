@@ -51,6 +51,11 @@ Each new peer connects to our blockchain application, we need to make sure that 
 ```
 npm i elliptic
 ```
+`secp256k1` curve that we will used in the project.
+- "`sec`" means standards for efficient cryptography,
+- "`p`" stands for prime number, that will be 256 bits,
+- "`k`" stands for ***Koblitz***, the name of the mathematician in the of cryptography,
+- "`1`" for the first implementation fo the algorithm
 
 ### `uuid`
 `uuid` stands for ***Universally Unqiue Identifier***. `uuid` is used to generate a transaction ID - ***TXID*** in `chain-util.js`
