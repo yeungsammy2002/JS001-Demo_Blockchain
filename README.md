@@ -62,6 +62,12 @@ npm i elliptic
 ```
 npm i uuid
 ```
+There are multiple versions of ***id generating functions*** of the `uuid` ***module***. But ***version 1*** fit our use case since it's ***timestamp base***.
+
+In `uuid@8.3.2`, we can use `uuid` ***version 1*** by using destructuring:
+```
+const { v1: uuidV1 } = require("uuid);
+```
 
 ### Implementation of peer-to-peer server
 There are two possiblity of how an individual server will behave:
